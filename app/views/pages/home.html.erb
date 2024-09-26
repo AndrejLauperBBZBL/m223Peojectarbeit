@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>Available Motorcycles</h1>
+
+  <% if @motorcycles.any? %>
+    <div class="motorcycle-list">
+      <% @motorcycles.each do |motorcycle| %>
+        <div class="motorcycle-card">
+          <h2><%= motorcycle.motorbike_type.name %></h2>
+          <p>Category: <%= motorcycle.motorbike_type.category %></p>
+          <p>Owned by: <%= motorcycle.user.username %></p>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>No motorcycles available at the moment.</p>
+  <% end %>
+</div>
