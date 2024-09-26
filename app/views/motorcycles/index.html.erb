@@ -1,0 +1,14 @@
+<!-- app/views/motorcycles/index.html.erb -->
+<h1>Motorcycles</h1>
+
+<% if @motorcycles.any? %>
+  <ul>
+    <% @motorcycles.each do |motorcycle| %>
+      <li>
+        <%= link_to motorcycle.name, motorcycle_path(motorcycle) %> (Category: <%= motorcycle.category %>)
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No motorcycles available at the moment.</p>
+<% end %>

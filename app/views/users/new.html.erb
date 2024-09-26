@@ -1,0 +1,77 @@
+<div class="signup-container">
+  <h1>Create Your Account</h1>
+
+  <%= form_with model: @user, url: users_path, local: true, multipart: true do |f| %>
+    <!-- Username -->
+    <div class="form-group">
+      <%= f.label :username %>
+      <%= f.text_field :username, class: "input-field", placeholder: "Enter your username" %>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: "input-field", placeholder: "Enter your email" %>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: "input-field", placeholder: "Enter a password" %>
+    </div>
+
+    <!-- Password Confirmation -->
+    <div class="form-group">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, class: "input-field", placeholder: "Confirm your password" %>
+    </div>
+
+    <!-- Select Motorcycle Type from Catalog -->
+    <div class="form-group">
+      <%= label_tag :motorbike_type_id, "Select Your Motorcycle Type" %>
+      <%= collection_select nil, :motorbike_type_id, MotorbikeType.all, :id, :name, { prompt: "Choose your motorcycle type" }, { class: "input-field" } %>
+    </div>
+
+    <!-- Driver's License Upload -->
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#licenseModal">
+        Upload Driver's License
+      </button>
+    </div>
+
+    <!-- Modal for Driver's License Upload -->
+    <div class="modal fade" id="licenseModal" tabindex="-1" aria-labelledby="licenseModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="licenseModalLabel">Upload Driver's License</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <%= f.label :license_front, "Upload Front of Driver's License" %>
+              <%= f.file_field :license_front, class: "input-field" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :license_back, "Upload Back of Driver's License" %>
+              <%= f.file_field :license_back, class: "input-field" %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-group">
+      <%= f.submit "Sign Up", class: "submit-btn" %>
+    </div>
+  <% end %>
+
+  <p class="account-text">
+    Already have an account?
+    <%= link_to 'Log In', login_path, class: "login-link" %>
+  </p>
+</div>

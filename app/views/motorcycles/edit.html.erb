@@ -1,0 +1,20 @@
+<!-- app/views/motorcycles/edit.html.erb -->
+<h1>Edit Motorcycle</h1>
+
+<%= form_with model: @motorcycle, local: true do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :category %>
+    <%= f.text_field :category %>
+  </div>
+
+  <div>
+    <%= f.submit 'Update Motorcycle' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', motorcycles_path %>
