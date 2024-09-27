@@ -35,3 +35,17 @@ Führen Sie den folgenden Befehl aus, um alle erforderlichen Abhängigkeiten fü
    bundle install
    yarn install
 
+## Datenbank einrichten
+
+Verwenden Sie die folgenden Befehle, um die Datenbank zu erstellen, zu migrieren und Beispiel-Daten zu laden:
+
+rails db:create
+rails db:migrate
+rails db:seed
+
+
+## Server starten
+
+Um den Server zu starten, verwenden Sie den folgenden Befehl:
+
+rails server
