@@ -27,8 +27,11 @@ Um dieses Projekt auszuführen, stellen Sie sicher, dass die folgenden Softwarek
    git clone https://github.com/your-username/bikeswitch.git
    cd bikeswitch
 
-  ```bash
-  bundle install
-  yarn install
+ ## Abhängigkeiten installieren
 
-  ```bash 
+Führen Sie den folgenden Befehl aus, um alle erforderlichen Abhängigkeiten für das Projekt zu installieren:
+
+   ```bash
+   bundle install
+   yarn install
+
