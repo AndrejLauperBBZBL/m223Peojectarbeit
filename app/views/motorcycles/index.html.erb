@@ -1,14 +1,31 @@
-<!-- app/views/motorcycles/index.html.erb -->
-<h1>Motorcycles</h1>
+<header>
+  <nav class="navbar">
+    <ul class="navbar-list">
+      <% if current_user %>
+        <li class="navbar-item">
+          <%= link_to 'Logout', logout_path, data: { turbo_method: :delete} %>
+        </li>
+        <% if current_user.role == 1 %>
+          <li class="navbar-item">
+            <%= link_to 'User Overview', admin_index_path %>
+          </li>
+        <% end %>
+      <% else %>
+        <li class="navbar-item">
+          <%= link_to 'Login', login_path %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+</header>
 
-<% if @motorcycles.any? %>
-  <ul>
-    <% @motorcycles.each do |motorcycle| %>
-      <li>
-        <%= link_to motorcycle.name, motorcycle_path(motorcycle) %> (Category: <%= motorcycle.category %>)
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No motorcycles available at the moment.</p>
-<% end %>
+<div class="motorcycles-container">
+  <% @motorcycles.each do |motorcycle| %>
+    <div class="motorcycle-card">
+      <h3><%= motorcycle.motorbike_type.name %></h3>
+      <p>Category: <%= motorcycle.motorbike_type.category %></p>
+      <P>Username: <%=motorcycle.user.username %></P>
+      <%= link_to 'View & Book', motorcycle_path(motorcycle), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

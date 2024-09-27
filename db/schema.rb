@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_20_122551) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_27_113144) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -46,6 +46,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_20_122551) do
     t.text "reason"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "start_date"
+    t.date "end_date"
     t.index ["motorcycle_id"], name: "index_bookings_on_motorcycle_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -85,6 +87,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_20_122551) do
     t.string "username"
     t.string "license_front"
     t.string "license_back"
+    t.integer "license_lvl"
+    t.boolean "confirmed"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

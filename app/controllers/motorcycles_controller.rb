@@ -38,6 +38,18 @@ class MotorcyclesController < ApplicationController
     redirect_to motorcycles_path, notice: "Motorcycle was successfully deleted."
   end
 
+  def show
+    @motorcycle = Motorcycle.find_by(id: params[:id])
+    @booking = Booking.new
+
+    #if @motorcycle.nil?
+    # flash[:alert] = "Motorcycle not found."
+    # redirect_to motorcycles_path
+    #else
+    #   @booking = Booking.new
+    #end
+  end
+
   private
 
   def motorcycle_params

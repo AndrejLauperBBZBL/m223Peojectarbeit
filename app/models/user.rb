@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :license_front, presence: true
   validates :license_back, presence: true
+  validates :license_lvl, numericality: { only_integer: true }, allow_nil: true
 
   # Ensure the user selects a motorcycle on signup
   validate :must_have_motorcycle, on: :create
@@ -24,6 +25,10 @@ class User < ApplicationRecord
 
   def must_have_motorcycle
     errors.add(:motorcycles, "must have at least one motorcycle") if motorcycles.empty?
+  end
+
+  def admin?
+    role == 1
   end
 end
 

@@ -1,0 +1,29 @@
+<h1><%= @motorcycle.motorbike_type.name %></h1>
+<p>Category: <%= @motorcycle.motorbike_type.category %></p>
+<p>Username: <%= @motorcycle.user.username %></p>
+
+<h2>Book this motorcycle</h2>
+<%= form_with model: [@motorcycle, @booking], local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :start_date, "Start Date" %>
+    <%= f.date_field :start_date, class: "input-field" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :end_date, "End Date" %>
+    <%= f.date_field :end_date, class: "input-field" %>
+  </div>
+
+  <%= f.submit "Request Booking", class: "btn btn-primary" %>
+<% end %>
+
+<h2>Pending Bookings</h2>
+<% @motorcycle.bookings.each do |booking| %>
+  <p>Booking from <%= booking.start_date %> to <%= booking.end_date %></p>
+  <% if booking.status == 'pending' && current_user == @motorcycle.user %>
+    <%= form_with model: booking, url: motorcycle_booking_path(@motorcycle, booking), method: :patch, local: true do |f| %>
+      <%= f.hidden_field :status, value: 'approved' %>
+      <%= f.submit 'Approve', class: 'btn btn-success' %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
     redirect_to new_session_path, alert: "You must log in first" unless current_user
   end
 
+  def require_logged_out
+    if current_user
+      redirect_to root_path, notice: "You are already logged in."
+    end
+  end
+
   def authenticate_admin!
     redirect_to root_path, alert: "Admin access only" unless current_user&.admin?
   end

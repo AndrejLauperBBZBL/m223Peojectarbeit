@@ -1,5 +1,6 @@
 # app/controllers/sessions_controller.rb
 class SessionsController < ApplicationController
+  before_action :require_logged_out, only: [:new]
   def new
     # Render the login form
   end

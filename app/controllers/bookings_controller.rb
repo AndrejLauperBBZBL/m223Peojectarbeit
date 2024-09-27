@@ -1,15 +1,37 @@
-# app/controllers/bookings_controller.rb
 class BookingsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :set_motorcycle
+
+  def new
+    @booking = Booking.new
+  end
 
   def create
-    @motorcycle = Motorcycle.find(params[:motorcycle_id])
-    @booking = current_user.bookings.build(motorcycle: @motorcycle)
+    @booking = @motorcycle.bookings.build(booking_params)
+    @booking.user = current_user
 
-    if @booking.eligible_to_book?(current_user) && @booking.save
-      redirect_to motorcycles_path, notice: "Booking created successfully."
+    if @booking.save
+      redirect_to @motorcycle, notice: 'Booking request submitted!'
     else
-      redirect_to motorcycles_path, alert: "You are not eligible to book this motorcycle."
+      render :new
     end
+  end
+
+  def update
+    @booking = Booking.find(params[:id])
+    if current_user == @booking.motorcycle.user && @booking.update(booking_params)
+      redirect_to motorcycle_path(@booking.motorcycle), notice: 'Booking approved successfully!'
+    else
+      redirect_to motorcycle_path(@booking.motorcycle), alert: 'You are not authorized to approve this booking.'
+    end
+  end
+
+  private
+
+  def set_motorcycle
+    @motorcycle = Motorcycle.find(params[:motorcycle_id])
+  end
+
+  def booking_params
+    params.require(:booking).permit(:start_date, :end_date, :status)
   end
 end

@@ -1,12 +1,19 @@
-# app/models/booking.rb
 class Booking < ApplicationRecord
   belongs_to :motorcycle
   belongs_to :user
 
-  enum status: { pending: "pending", approved: "approved", rejected: "rejected" }
+  validates :start_date, presence: true
+  validates :end_date, presence: true
 
-  def eligible_to_book?(user)
-    # Check if the user's license category allows them to book the motorcycle
-    License.approved.exists?(user: user) && user.license.category <= motorcycle.category
+  validate :end_date_after_start_date
+
+  private
+
+  def end_date_after_start_date
+    return if end_date.blank? || start_date.blank?
+
+    if end_date < start_date
+      errors.add(:end_date, "must be after the start date")
+    end
   end
 end
